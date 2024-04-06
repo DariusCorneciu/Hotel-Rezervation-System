@@ -2,7 +2,7 @@ package model.user;
 
 import java.util.Objects;
 import service.HelpService;
-public class User {
+public  class User {
     private String firstName;
     private String lastName;
     private String password;
@@ -47,4 +47,8 @@ public class User {
     public int getId() {
         return id;
     }
+
+    public String getType(){
+        return "user";
+    };
 }

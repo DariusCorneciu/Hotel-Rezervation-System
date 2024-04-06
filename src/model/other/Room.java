@@ -10,5 +10,12 @@ public class Room {
         this.view = view;
         this.price = price;
     }
+    public void showRoom(){
+        System.out.println("Beds: "+bedNumber);
+        System.out.println("View: "+view);
+        System.out.println("Price: "+price);
+        System.out.println("====================");
+    }
+
 
 }

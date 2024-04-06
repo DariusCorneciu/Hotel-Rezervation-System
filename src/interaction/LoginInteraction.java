@@ -24,10 +24,9 @@ public class LoginInteraction {
                 case 2:
                     users.newUser(cin);
                     break;
-                case 3:
-                    return;
+
                 default:
-                    System.out.println("Invalid!");
+                    return;
 
             }
             if(actualUser != null){
@@ -40,6 +39,7 @@ public class LoginInteraction {
         System.out.println("Login Panel");
         System.out.println("1. Login");
         System.out.println("2.Register");
+        System.out.println("[Other] Exit");
 
     }
     public void logging(UserService users){

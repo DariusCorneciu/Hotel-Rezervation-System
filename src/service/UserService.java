@@ -11,10 +11,8 @@ public class UserService {
     private static UserService instance;
 
     private UserService(){
-        User Admin = new Manager("Admin","Mode","123456","admin@gmail.com");
         databaseService = UserRepositoryService.getInstance();
-        databaseService.addUser(Admin);
-    }
+       }
 
     public static UserService getInstance() {
         if(instance ==null){

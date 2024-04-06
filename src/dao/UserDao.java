@@ -23,5 +23,9 @@ public class UserDao {
         return null;
     }
 
+    public static List<User> getUsers() {
+        return users;
+    }
+
     public void delete(User user){users.remove(user);  }
 }

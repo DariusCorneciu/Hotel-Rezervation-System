@@ -12,11 +12,5 @@ public class ReservationService {
         reservationScanner = new Scanner(System.in);
         databaseService = ReservationRepositoryService.getInstance();
     }
-    public chooseHotel(){
 
-
-    }
-    public newReservation(){
-
-    }
 }

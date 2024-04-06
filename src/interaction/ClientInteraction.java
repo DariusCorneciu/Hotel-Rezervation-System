@@ -27,7 +27,7 @@ public class ClientInteraction {
             this.client = null;
         }
         }
-    public void clientAction(){
+    public boolean clientAction(){
         int alegere;
 
         while (true){
@@ -42,7 +42,10 @@ public class ClientInteraction {
                     System.out.println("Type anything to exit!");
                     cin.next();
                     break;
-
+                case 6:
+                    return true;
+                case 7:
+                    return false;
             }
         }
     }
@@ -52,9 +55,10 @@ public class ClientInteraction {
         System.out.println("---------------------------------------");
         System.out.println("1. Add card");
         System.out.println("2. Show available cards");
-        System.out.println("4. Add a reservation");
-        System.out.println("5. Pay reservations");
+        System.out.println("4. Add a reservation(Not added)");
+        System.out.println("5. Pay reservations(Not added)");
         System.out.println("6. Logout");
+        System.out.println("7. Exit");
     }
     private void addCard(){
         String alegere = "";
@@ -78,5 +82,7 @@ public class ClientInteraction {
         Card card = CardFactory.createCard(type, cardNumber, valid, holder, ccv);
         return card;
     }
+
+
 
 }

@@ -16,4 +16,9 @@ public class Client extends User {
         wallet.add(card);
     }
     public List<Card> getWallet(){return wallet;}
+
+    @Override
+    public String getType() {
+        return "client";
+    }
 }
