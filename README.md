@@ -22,6 +22,9 @@
 - Poate sa editeze un angajat(sa ii mareasca/scada salariu sau sa il realole la un alt hotel)
 - Managerul poate sa verifice statusul hotelurilor(poate sa vada ce camere sunt rezervate si ce camere sunt disponibile)
 - Managerul poate sa caute un receptionist dupa nume si sa vada detalii legate de acesta
+
+  ![dfgzcvi-ecc895e8-d951-46c7-8b5a-fab1c0e14e26](https://github.com/DariusCorneciu/Hotel-Rezervation-System/assets/116907008/643ece67-9bd7-448f-aae3-bf4edb3ee50b)
+
 ### Hotel
 - Un hotel retine un HashMap<Room,Reservation> pentru ca o rezervare se poate intinde pe mai multe camere, iar acesta o gestioneaza eficient prin adaugare,verificare a disponibilitatii
 - Retine un id pentru a putea sa fie gasit mai usor cand este nevoie
@@ -32,6 +35,9 @@
 - O rezevare poate sa fie creata si afisata(pentru user ca sa le poata platii)
 - In momentul in care un client creeaza o rezervare acesta selecteaza hotelul si trece prin toate camerele disponibile. Acesta poate sa aleaga mai multe camere in functie de necesitate
 - Costul este dimanic in functie de numarul de camere cerute
+
+  ![dclnudn-a9ea4f15-e77a-46fc-9485-f1a5c6ec31a2](https://github.com/DariusCorneciu/Hotel-Rezervation-System/assets/116907008/d7a56512-e4a5-4bc2-966b-d14066505deb)
+
 ### Card
 - Asemanator cu cel lucrat la laborator avem o clasa abstracta Card care retine marea majoritate a datelor, ulterior aceasta clasa este mostenita de CreditCard si DebitCard
 - CreditCard are o limita de datorii impusa de mine, dar poti sa platesti cu acesta pana in limita(-50000)
