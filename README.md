@@ -11,7 +11,6 @@
 ## Lucruri adaugate
  Am facut aproximativ tot ce mi-am propus pe partea de User si Manager
  
- ![pixel-animation-character-full-set-example](https://github.com/DariusCorneciu/Hotel-Rezervation-System/assets/116907008/095085c1-95b6-4812-965d-6de82d0ea356)
 ### User
 - Acesta este un client al aplicatiei mele si poate sa creeze rezervari
 - Acesta poate sa isi plateasca rezervarile facute
@@ -23,20 +22,16 @@
 - Managerul poate sa verifice statusul hotelurilor(poate sa vada ce camere sunt rezervate si ce camere sunt disponibile)
 - Managerul poate sa caute un receptionist dupa nume si sa vada detalii legate de acesta
 
-  ![dfgzcvi-ecc895e8-d951-46c7-8b5a-fab1c0e14e26](https://github.com/DariusCorneciu/Hotel-Rezervation-System/assets/116907008/643ece67-9bd7-448f-aae3-bf4edb3ee50b)
 
 ### Hotel
 - Un hotel retine un HashMap<Room,Reservation> pentru ca o rezervare se poate intinde pe mai multe camere, iar acesta o gestioneaza eficient prin adaugare,verificare a disponibilitatii
 - Retine un id pentru a putea sa fie gasit mai usor cand este nevoie
 
-  ![73696e022df7cd5cb3d999c6875361dd](https://github.com/DariusCorneciu/Hotel-Rezervation-System/assets/116907008/3b955d94-9629-4b27-b70f-193e5568c86d)
 
 ### Reservation
 - O rezevare poate sa fie creata si afisata(pentru user ca sa le poata platii)
 - In momentul in care un client creeaza o rezervare acesta selecteaza hotelul si trece prin toate camerele disponibile. Acesta poate sa aleaga mai multe camere in functie de necesitate
 - Costul este dimanic in functie de numarul de camere cerute
-
-  ![dclnudn-a9ea4f15-e77a-46fc-9485-f1a5c6ec31a2](https://github.com/DariusCorneciu/Hotel-Rezervation-System/assets/116907008/d7a56512-e4a5-4bc2-966b-d14066505deb)
 
 ### Card
 - Asemanator cu cel lucrat la laborator avem o clasa abstracta Card care retine marea majoritate a datelor, ulterior aceasta clasa este mostenita de CreditCard si DebitCard
