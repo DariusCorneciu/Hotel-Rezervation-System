@@ -1,6 +1,7 @@
 package dao;
 
 import model.other.Reservation;
+import model.user.Client;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -16,6 +17,15 @@ public class ReservationDao {
             }
         }
         return null;
+    }
+    public List<Reservation> findReservations(Client client){
+        List<Reservation> clientReservation = new ArrayList<>();
+        for(Reservation reservation: reservations){
+            if(reservation.getClient().equals(client)){
+                clientReservation.add(reservation);
+            }
+        }
+        return clientReservation;
     }
     public void delete(Reservation delete) {reservations.remove(delete);}
 }

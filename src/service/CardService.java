@@ -1,6 +1,9 @@
 package service;
 
 import model.banking.Card;
+import model.banking.CardFactory;
+import model.user.Client;
+import repository.CardRepositoryService;
 
 import java.util.Date;
 import java.util.List;
@@ -8,16 +11,32 @@ import java.util.Scanner;
 
 public final class CardService {
     private final Scanner cardScanner;
+    private CardRepositoryService databaseService;
     private static CardService getInstance;
 
     private CardService(){
         cardScanner = new Scanner(System.in);
+        databaseService = CardRepositoryService.getInstance();
     }
     public static CardService getInstance() {
         if(getInstance == null){
             getInstance = new CardService();
         }
         return getInstance;
+    }
+    public void showWallet(Client client){
+        databaseService.showOwnerCards(client);
+    }
+    public Card createCard(String type,Client client){
+
+        String cardNumber = getCardNumber();
+        Date valid = getValidDate();
+
+        String holder = client.getFirstName() +" "+client.getLastName();
+        int ccv = getCcv();
+        Card card = CardFactory.createCard(type, cardNumber, valid, holder, ccv,client);
+        databaseService.addCard(card);
+        return card;
     }
 
     public String getCardNumber(){
@@ -57,10 +76,7 @@ public final class CardService {
         return ccv;
     }
 
-    public void showWallet(List<Card> cards){
-        for(Card card:cards){
-            card.showCard();
-        }
 
-    }
+
+
 }

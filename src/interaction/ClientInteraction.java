@@ -5,6 +5,7 @@ import model.banking.CardFactory;
 import model.user.Client;
 import model.user.User;
 import service.CardService;
+import service.ReservationService;
 
 import java.util.Date;
 import java.util.Scanner;
@@ -29,7 +30,7 @@ public class ClientInteraction {
         }
     public boolean clientAction(){
         int alegere;
-
+        ReservationService reservationService =new ReservationService();
         while (true){
             menu();
             alegere = cin.nextInt();
@@ -38,13 +39,19 @@ public class ClientInteraction {
                     addCard();
                     break;
                 case 2:
-                    cardService.showWallet(client.getWallet());
+                    cardService.showWallet(client);
                     System.out.println("Type anything to exit!");
                     cin.next();
                     break;
-                case 6:
+                case 3:
+                    reservationService.createReservation(client);
+                    break;
+                case 4:
+                    reservationService.PayReservation(client);
+                    break;
+                case 5:
                     return true;
-                case 7:
+                case 6:
                     return false;
             }
         }
@@ -55,10 +62,10 @@ public class ClientInteraction {
         System.out.println("---------------------------------------");
         System.out.println("1. Add card");
         System.out.println("2. Show available cards");
-        System.out.println("4. Add a reservation(Not added)");
-        System.out.println("5. Pay reservations(Not added)");
-        System.out.println("6. Logout");
-        System.out.println("7. Exit");
+        System.out.println("3. Add a reservation");
+        System.out.println("4. Pay reservations");
+        System.out.println("5. Logout");
+        System.out.println("6. Exit");
     }
     private void addCard(){
         String alegere = "";
@@ -70,18 +77,9 @@ public class ClientInteraction {
             System.out.println("[vacantion]. Vacantion Card");
             alegere = cin.nextLine();
         }
-      client.addCard(createCard(alegere));
+      client.addCard(cardService.createCard(alegere,client));
     }
-    private Card createCard(String type){
 
-        String cardNumber = cardService.getCardNumber();
-        Date valid = cardService.getValidDate();
-
-        String holder = client.getFirstName() +" "+client.getLastName();
-        int ccv = cardService.getCcv();
-        Card card = CardFactory.createCard(type, cardNumber, valid, holder, ccv);
-        return card;
-    }
 
 
 

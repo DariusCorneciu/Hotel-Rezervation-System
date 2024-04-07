@@ -1,12 +1,14 @@
 package model.banking;
 
+import model.user.Client;
+
 import java.util.Date;
 
 public class CreditCard extends Card{
     private double debt;
 
-    public CreditCard(String cardNumber, Date validThru, String placeHolder, int ccv) {
-        super(cardNumber, validThru, placeHolder, ccv);
+    public CreditCard(String cardNumber, Date validThru, String placeHolder, int ccv, Client client) {
+        super(cardNumber, validThru, placeHolder, ccv,client);
         this.debt = -1;
     }
 
@@ -24,13 +26,16 @@ public class CreditCard extends Card{
     }
 
     @Override
-    public void doTransaction(double sum) {
+    public boolean doTransaction(double sum) {
         debt -=sum;
         if(debt <-5000){
             System.out.println("Sorry, but you have too many debts.");
+            return false;
         }else{
             System.out.println("Transaction complete!");
+
         }
         System.out.println("Current debt: ["+-debt+"]");
+        return true;
     }
 }

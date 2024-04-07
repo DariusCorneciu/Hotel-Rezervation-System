@@ -44,11 +44,14 @@ public class ManagerInteraction {
                     break;
 
                 case 4:
-                    find();
+                    editReceptionist();
                     break;
-                case 6:
-                    return true;
+                case 5:
+                    findReceptionist();
+                    break;
                 case 7:
+                    return true;
+                case 8:
                     return false;
             }
         }
@@ -61,14 +64,32 @@ public class ManagerInteraction {
             System.out.println("----------------------------------------");
             System.out.println("1. Add Hotel");
             System.out.println("2. Show Hotels");
-            System.out.println("3.Show Receptionists");
-            System.out.println("4. Find receptionist");
-            System.out.println("5. Observer(Not added)");
-            System.out.println("6. Logout");
-            System.out.println("7. Exit");
+            System.out.println("3. Show Receptionists");
+            System.out.println("4. Edit receptionist");
+            System.out.println("5. Find receptionist");
+            System.out.println("6. Observer(Not added)");
+            System.out.println("7. Logout");
+            System.out.println("8. Exit");
 
     }
-    private void find(){
+    private void editReceptionist(){
+       Receptionist editedReceptionist = find();
+       if(editedReceptionist != null){
+           receptionistService.showReceptionists(hotelService);
+          receptionistService.updateReceptionist(editedReceptionist,hotelService);
+       }else{
+           System.out.println("Receptionistul nu a fost gasit!");
+       }
+    }
+    private void findReceptionist(){
+        Receptionist searchR = find();
+        if(searchR != null){
+            searchR.show(hotelService);
+        }else{
+            System.out.println("Nu a fost gasit!");
+        }
+    }
+    private Receptionist find(){
         System.out.println("==Find receptionist==");
         System.out.println("Last Name:");
         cin.nextLine();
@@ -77,13 +98,12 @@ public class ManagerInteraction {
         String firstName = cin.nextLine();
         Receptionist receptionist = receptionistService.findReceptionist(firstName,lastName);
         if(receptionist != null){
-            System.out.println("Receptionistul gasit.");
-            receptionist.show(hotelService);
-            /// de adaugat si sa ii modifice salaritul si sa ii schimbe hotelul
+        return receptionist;
         }else{
-            System.out.println("Nu a fost gasit!");
+            return null;
         }
-        }
+    }
+
 
 
 }

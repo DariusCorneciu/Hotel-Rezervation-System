@@ -2,6 +2,7 @@ package service;
 
 import model.other.Room;
 
+import java.util.List;
 import java.util.Scanner;
 
 public class RoomService {
@@ -29,6 +30,7 @@ public class RoomService {
     }
     private String setRoomView(){
         System.out.println("What view this room have?");
+        roomScanner.nextLine();
         String view = roomScanner.nextLine();
         while(view.equals("")){
             System.out.println("Room view can't be empty! ");
@@ -45,6 +47,33 @@ public class RoomService {
             bedNumber = roomScanner.nextInt();
         }
         return bedNumber;
+    }
+    public Room selectRoom(List<Room> rooms) {
+        int maximum = rooms.size() - 1;
+        int index = 0;
+        while (true) {
+            rooms.get(index).showRoom();
+            System.out.println("[a] Back [d] Next [s] Select");
+            String decision = roomScanner.nextLine();
+            switch (decision.toLowerCase()) {
+                case "a":
+                    if (index == 0) {
+                        index = maximum;
+                    } else {
+                        index--;
+                    }
+                    break;
+                case "d":
+                    if (index == maximum) {
+                        index = 0;
+                    } else {
+                        index++;
+                    }
+                    break;
+                case "s":
+                    return rooms.get(index);
+            }
+        }
     }
 
 }

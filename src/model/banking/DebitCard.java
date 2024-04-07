@@ -1,12 +1,14 @@
 package model.banking;
 
+import model.user.Client;
+
 import java.util.Date;
 
 public class DebitCard extends Card {
     private double money;
 
-    public DebitCard(String cardNumber, Date validThru, String placeHolder, int ccv, double money) {
-        super(cardNumber, validThru, placeHolder, ccv);
+    public DebitCard(String cardNumber, Date validThru, String placeHolder, int ccv, double money, Client client) {
+        super(cardNumber, validThru, placeHolder, ccv,client);
         this.money = money;
     }
     @Override
@@ -24,13 +26,15 @@ public class DebitCard extends Card {
 
 
     @Override
-    public void doTransaction(double sum) {
+    public boolean doTransaction(double sum) {
         double total = money - sum;
         if(total <0){
             System.out.println("No enough money to pay for the reservation");
+            return false;
         }else{
             money = total;
             System.out.println("You just payed for the reservation");
+            return true;
         }
 
     }

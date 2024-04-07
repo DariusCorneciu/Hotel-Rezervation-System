@@ -1,8 +1,8 @@
 package service;
 
 import model.other.Hotel;
+import model.other.Reservation;
 import model.other.Room;
-import model.user.Manager;
 import model.user.User;
 import repository.HotelRepositoryService;
 
@@ -17,7 +17,30 @@ public class HotelService {
         hotelScanner = new Scanner(System.in);
         databaseService = HotelRepositoryService.getInstance();
     }
+    public Hotel selectHotel(){
+        HotelService hotelService = new HotelService();
+        hotelService.idHotelShow();
+        System.out.println("Select the hotel");
+        int hotelId = hotelScanner.nextInt();
+        Hotel selected = hotelService.findHotelById(hotelId);
 
+        while(selected == null){
+            System.out.println("Hotel does not exist!");
+            hotelId = hotelScanner.nextInt();
+            selected = hotelService.findHotelById(hotelId);
+
+        }
+        return selected;
+    }
+    public void idHotelShow(){
+        List<Hotel> hotelList = databaseService.getHotelList();
+        for(Hotel h:hotelList){
+            System.out.println(h.getId() +". "+ h.getHotelName());
+        }
+    }
+    public void updateHotel(Hotel hotel, List<Room> selected, Reservation reservation){
+    databaseService.updateHotel(hotel,selected,reservation);
+    }
     public Hotel findHotelById(int id){
         List<Hotel> hotelList = databaseService.getHotelList();
         for(Hotel h:hotelList){
@@ -35,7 +58,7 @@ public class HotelService {
         System.out.println("How many rooms does the hotel have?");
         int number = hotelScanner.nextInt();
         for(int i = 0;i<number;i++){
-            System.out.println("Room "+i);
+            System.out.println("Room "+i+1);
             Room newRoom = roomService.createRoom();
             newHotel.addRoom(newRoom);
         }

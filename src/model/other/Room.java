@@ -17,5 +17,7 @@ public class Room {
         System.out.println("====================");
     }
 
-
+    public int getPrice() {
+        return price;
+    }
 }

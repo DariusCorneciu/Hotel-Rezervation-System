@@ -2,6 +2,7 @@ package repository;
 
 import dao.HotelDao;
 import model.other.Hotel;
+import model.other.Reservation;
 import model.other.Room;
 import model.user.Manager;
 import model.user.User;
@@ -37,6 +38,11 @@ public class HotelRepositoryService {
             instance = new HotelRepositoryService();
         }
         return instance;
+    }
+
+    public void updateHotel(Hotel hotel, List<Room> selected, Reservation reservation){
+        hotel.updateRoomMap(selected,reservation);
+        System.out.println("Reservation was added");
     }
     public void addHotel(User user, Hotel h){
         if(user instanceof Manager){
