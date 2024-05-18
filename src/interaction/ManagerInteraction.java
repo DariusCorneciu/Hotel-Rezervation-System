@@ -7,6 +7,8 @@ import model.user.User;
 import service.HotelService;
 import service.ReceptionistService;
 
+import java.sql.Connection;
+import java.sql.Statement;
 import java.util.Scanner;
 
 public class ManagerInteraction {
@@ -14,11 +16,13 @@ public class ManagerInteraction {
     private Scanner cin;
     private HotelService hotelService;
     private ReceptionistService receptionistService;
+    private final Statement statement;
 
-    public ManagerInteraction(User manager){
-        receptionistService = new ReceptionistService();
+    public ManagerInteraction(User manager, Statement statement){
+        receptionistService = new ReceptionistService(statement);
+        this.statement = statement;
         cin = new Scanner(System.in);
-        hotelService = new HotelService();
+        hotelService = new HotelService(statement);
         if(manager instanceof Manager){
             this.manager = ((Manager) manager);
         }else{
@@ -26,7 +30,7 @@ public class ManagerInteraction {
         }
     }
 
-    public boolean managerAction(){
+    public boolean managerAction(Connection connection){
         int alegere;
 
         while (true){
@@ -34,7 +38,7 @@ public class ManagerInteraction {
             alegere = cin.nextInt();
             switch (alegere){
                 case 1:
-                    hotelService.addHotel(manager);
+                    hotelService.addHotel(manager,statement,connection);
                     break;
                 case 2:
                     hotelService.showHotels();

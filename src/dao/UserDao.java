@@ -22,6 +22,18 @@ public class UserDao {
         }
         return null;
     }
+    public User read(int id){ //o sa folosesc aceasta functie pentru a ma asigura ca fiecare user
+        // are o unica adresa de mail
+
+        if(!users.isEmpty()){
+            for(User u:users){
+                if(u.getId() == id){
+                    return u;
+                }
+            }
+        }
+        return null;
+    }
 
     public static List<User> getUsers() {
         return users;

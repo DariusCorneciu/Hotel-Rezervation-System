@@ -5,6 +5,8 @@ import model.banking.CardFactory;
 import model.user.Client;
 import repository.CardRepositoryService;
 
+import java.sql.Connection;
+import java.sql.Statement;
 import java.util.Date;
 import java.util.List;
 import java.util.Scanner;
@@ -14,28 +16,38 @@ public final class CardService {
     private CardRepositoryService databaseService;
     private static CardService getInstance;
 
-    private CardService(){
+    private CardService(Statement statement){
         cardScanner = new Scanner(System.in);
-        databaseService = CardRepositoryService.getInstance();
+        databaseService = CardRepositoryService.getInstance(statement);
     }
-    public static CardService getInstance() {
+    public static CardService getInstance(Statement statement) {
         if(getInstance == null){
-            getInstance = new CardService();
+            getInstance = new CardService(statement);
         }
         return getInstance;
     }
     public void showWallet(Client client){
         databaseService.showOwnerCards(client);
     }
-    public Card createCard(String type,Client client){
+    public Card createCard(String type, Client client, Connection connection){
 
         String cardNumber = getCardNumber();
         Date valid = getValidDate();
 
         String holder = client.getFirstName() +" "+client.getLastName();
         int ccv = getCcv();
-        Card card = CardFactory.createCard(type, cardNumber, valid, holder, ccv,client);
-        databaseService.addCard(card);
+        double money = 0;
+        if(type.toLowerCase().equals("debit")){
+            System.out.println("Cati bani aveti pe acest cont?");
+            while(money <=0){
+                money = cardScanner.nextDouble();
+                if(money <=0){
+                    System.out.println("Suma trebuie sa fie mai mare decat 0!!");
+                }
+            }
+        }
+        Card card = CardFactory.createCard(type, cardNumber, valid, holder, ccv,client,money);
+        databaseService.addCard(card,connection);
         return card;
     }
 

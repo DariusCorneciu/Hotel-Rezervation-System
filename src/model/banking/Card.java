@@ -15,7 +15,7 @@ public abstract class Card {
 
     private Date validThru;
     private String placeHolder;
-    private int ccv;
+        private int ccv;
 
     public Card(String cardNumber, Date validThru, String placeHolder, int ccv,Client client) {
         this.cardNumber = cardNumber;
@@ -29,6 +29,10 @@ public abstract class Card {
 
     abstract public boolean doTransaction(double sum);
     abstract public void showCard();
+
+    abstract public String getType();
+
+    abstract public double getMoney();
     public int getId() {
         return id;
     }

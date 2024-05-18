@@ -7,6 +7,8 @@ import model.other.Room;
 import model.user.Client;
 import repository.ReservationRepositoryService;
 
+import java.sql.Connection;
+import java.sql.Statement;
 import java.time.LocalDate;
 import java.time.Year;
 import java.util.ArrayList;
@@ -17,16 +19,16 @@ import java.util.Scanner;
 public class ReservationService {
     private final Scanner reservationScanner;
     ReservationRepositoryService databaseService;
-    public ReservationService(){
+    public ReservationService(Statement statement){
         reservationScanner = new Scanner(System.in);
-        databaseService = ReservationRepositoryService.getInstance();
+        databaseService = ReservationRepositoryService.getInstance(statement);
     }
 
-    public void PayReservation(Client client){
+    public void PayReservation(Client client,Statement statement){
         List<Reservation> reservations = databaseService.findReservations(client);
        if(!reservations.isEmpty()) {
-           Reservation selectedReservation = selectReservation(reservations);
-           Card card = selectCard(client);
+           Reservation selectedReservation = selectReservation(reservations,statement);
+           Card card = selectCard(client,statement);
            if (card != null) {
                if (card.doTransaction(selectedReservation.getCost())) {
 
@@ -44,8 +46,8 @@ public class ReservationService {
        }
     }
 
-       private Card selectCard(Client client){
-           CardService cardService = CardService.getInstance();
+       private Card selectCard(Client client, Statement statement){
+           CardService cardService = CardService.getInstance(statement);
            if(client.getWallet().isEmpty()){
                return null;
            }
@@ -60,8 +62,8 @@ public class ReservationService {
            }
            return client.getWallet().get(cardselect);
        }
-    private Reservation selectReservation(List<Reservation> reservations) {
-        HotelService hotelService = new HotelService();
+    private Reservation selectReservation(List<Reservation> reservations,Statement statement) {
+        HotelService hotelService = new HotelService(statement);
 
         int maximum = reservations.size() - 1;
         int index = 0;
@@ -89,8 +91,8 @@ public class ReservationService {
             }
         }
     }
-    public void createReservation(Client client){
-       Hotel selectedHotel = new HotelService().selectHotel();
+    public void createReservation(Client client, Statement statement, Connection connection){
+       Hotel selectedHotel = new HotelService(statement).selectHotel(statement);
        RoomService roomService = new RoomService();
         List<Room> avalabile = selectedHotel.getAvalabileRooms();
         if(avalabile != null){
@@ -119,9 +121,9 @@ public class ReservationService {
             LocalDate startDate = selectDate(LocalDate.now());
             System.out.println("======End Date=======");
             LocalDate endDate = selectDate(startDate);
-            Reservation reservation =new Reservation(selectedHotel.getId(),startDate,endDate,client,payment);
-            databaseService.addReservation(reservation);
-            addReservation(selectedHotel,selectedRooms,reservation);//am lista de camere selectate si vreau sa adaug rezervarea pe ele
+            Reservation reservation =new Reservation(selectedHotel.getId(),startDate,endDate,client,payment,-2);
+            databaseService.addReservation(reservation,connection);
+            addReservation(selectedHotel,selectedRooms,reservation,statement,connection);//am lista de camere selectate si vreau sa adaug rezervarea pe ele
         }else{
             System.out.println("This hotel doesnt have avalabile rooms");
         }
@@ -164,9 +166,9 @@ private int selectDay(LocalDate today,int month){
     }
 return day;
 }
-    private void addReservation(Hotel h,List<Room> resRoom,Reservation reservation){
-        HotelService hotelService = new HotelService();
-        hotelService.updateHotel(h,resRoom,reservation);
+    private void addReservation(Hotel h,List<Room> resRoom,Reservation reservation,Statement statement,Connection connection){
+        HotelService hotelService = new HotelService(statement);
+        hotelService.updateHotel(h,resRoom,reservation,connection);
     }
 
 

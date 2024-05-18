@@ -11,7 +11,14 @@ public class CreditCard extends Card{
         super(cardNumber, validThru, placeHolder, ccv,client);
         this.debt = -1;
     }
-
+    @Override
+public String getType(){
+        return "Credit";
+    }
+    @Override
+    public double getMoney(){
+        return debt;
+    }
     @Override
     public void showCard() {
         int length = getCardNumber().length();

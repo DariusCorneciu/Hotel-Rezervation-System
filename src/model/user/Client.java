@@ -8,8 +8,8 @@ import java.util.List;
 public class Client extends User {
     private List<Card> wallet;
 
-    public Client(String first, String last, String password, String emailAddress) {
-        super(first, last, password, emailAddress);
+    public Client(String first, String last, String password, String emailAddress,int id) {
+        super(first, last, password, emailAddress,id);
         wallet = new ArrayList<>();
     }
     public void addCard(Card card){

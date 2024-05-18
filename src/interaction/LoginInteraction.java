@@ -3,6 +3,8 @@ package interaction;
 import model.user.User;
 import service.UserService;
 
+import java.sql.Connection;
+import java.sql.Statement;
 import java.util.Scanner;
 
 public class LoginInteraction {
@@ -12,8 +14,8 @@ public class LoginInteraction {
         this.actualUser = null;
         this.cin = new Scanner(System.in);
     }
-    public void loginmenu(){
-        UserService users = UserService.getInstance();
+    public void loginmenu(Statement statement, Connection connection){
+        UserService users = UserService.getInstance(statement);
         while(true){
             meniu();
             int alegere = cin.nextInt();
@@ -22,7 +24,7 @@ public class LoginInteraction {
                     logging(users);
                     break;
                 case 2:
-                    users.newUser(cin);
+                    users.newUser(cin,connection);
                     break;
 
                 default:

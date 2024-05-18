@@ -7,8 +7,8 @@ public class Receptionist extends User {
     private int salary;
     private double review;
 
-    public Receptionist(String first, String last, String password, String emailAddress) {
-        super(first, last, password, emailAddress);
+    public Receptionist(String first, String last, String password, String emailAddress,int id) {
+        super(first, last, password, emailAddress,id);
     }
     @Override
     public String getType() {

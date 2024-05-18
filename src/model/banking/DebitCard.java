@@ -12,6 +12,14 @@ public class DebitCard extends Card {
         this.money = money;
     }
     @Override
+    public String getType(){
+        return "Debit";
+    }
+    @Override
+    public double getMoney(){
+        return money;
+    }
+    @Override
     public void showCard() {
         int length = getCardNumber().length();
         String privacy = "*".repeat(length-4);

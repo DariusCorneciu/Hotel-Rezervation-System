@@ -9,7 +9,6 @@ import java.util.Date;
 
 public class Reservation {
     private int hotelId;
-    private static int count = 0;
     private Client client;
     private int id;
     private int cost;
@@ -17,14 +16,13 @@ public class Reservation {
     private LocalDate startDate;
     private LocalDate endDate;
 
-    public Reservation(int hotelId, LocalDate startDate, LocalDate endDate,Client client,int cost) {
+    public Reservation(int hotelId, LocalDate startDate, LocalDate endDate,Client client,int cost,int id) {
         this.hotelId = hotelId;
         this.startDate = startDate;
         this.endDate = endDate;
         this.client = client;
         this.cost = cost;
-        count++;
-        id = count;
+        this.id = id;
         payed = false;
     }
 
@@ -35,6 +33,11 @@ public class Reservation {
             System.out.println("The reservation was all ready payed!");
         }
     }
+
+    public void setId(int id) {
+        this.id = id;
+    }
+
     public void showReservation(HotelService hotelService){
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy");
         System.out.println("====Reservation====");

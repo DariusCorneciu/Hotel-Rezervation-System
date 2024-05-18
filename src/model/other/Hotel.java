@@ -9,19 +9,20 @@ import java.util.Map;
 
 public class Hotel {
     private String hotelName;
-    private static int count=0;
-    private final int id;
+    private  int id;
     private double review;
     private Map<Room,Reservation> roomMap;
 
-    public Hotel(String name){
-        count++;
+    public Hotel(String name,int id,double review){
         this.hotelName = name;
-        this.id = count;
+        this.id = id;
+        this.review = review;
         roomMap = new HashMap<>();
 
     }
-
+public void setId(int id){
+        this.id = id;
+}
     public List<Room> getAvalabileRooms(){
         List<Room> available = new ArrayList<>();
         for(Room room:roomMap.keySet()){

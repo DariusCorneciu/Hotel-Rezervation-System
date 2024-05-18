@@ -1,5 +1,7 @@
 package model.user;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Objects;
 import service.HelpService;
 public  class User {
@@ -8,17 +10,18 @@ public  class User {
     private String password;
     private String emailAddress;
     private int id;
-    private static int count=0;
 
-    public User(String first, String last, String password,String emailAddress){
-        count++;
-        id=count;
+    public User(String first, String last, String password,String emailAddress,int id){
+     this.id = id;
         this.firstName = first;
         this.lastName = last;
-        this.password = HelpService.hashPassword(password);
+        this.password = password;
         this.emailAddress = emailAddress;
     }
 
+    public void setId(int id){
+        this.id = id;
+    }
 
     @Override
     public boolean equals(Object o) {
@@ -26,6 +29,16 @@ public  class User {
         if (!(o instanceof User)) return false;
         User user = (User) o;
         return this.password.equals(user.password) && emailAddress.equals(user.emailAddress);
+    }
+
+
+    public List<String> databaseAdd(){
+        List<String> export = new ArrayList<>();
+        export.add(emailAddress);
+        export.add(firstName);
+        export.add(lastName);
+        export.add(password);
+        return export;
     }
 
     public String getFirstName() {
@@ -51,4 +64,5 @@ public  class User {
     public String getType(){
         return "user";
     };
+
 }

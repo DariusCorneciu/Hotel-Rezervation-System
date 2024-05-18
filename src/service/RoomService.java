@@ -12,11 +12,11 @@ public class RoomService {
     public RoomService(){
         roomScanner = new Scanner(System.in);
     }
-    public Room createRoom(){
+    public Room createRoom(int reservationId,int id){
         int bedNumber = setRoomBedNumber();
         int price  =setRoomPrice();
         String view = setRoomView();
-        return new Room(bedNumber,view,price);
+        return new Room(bedNumber,view,price,reservationId,id);
 
     }
     private int setRoomPrice(){

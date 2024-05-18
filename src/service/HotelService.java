@@ -6,19 +6,21 @@ import model.other.Room;
 import model.user.User;
 import repository.HotelRepositoryService;
 
+import java.sql.Connection;
+import java.sql.Statement;
 import java.util.List;
 import java.util.Scanner;
 
 public class HotelService {
     private Scanner hotelScanner;
     private HotelRepositoryService databaseService;
-    public HotelService(){
+    public HotelService(Statement statement){
 
         hotelScanner = new Scanner(System.in);
-        databaseService = HotelRepositoryService.getInstance();
+        databaseService = HotelRepositoryService.getInstance(statement);
     }
-    public Hotel selectHotel(){
-        HotelService hotelService = new HotelService();
+    public Hotel selectHotel(Statement statement){
+        HotelService hotelService = new HotelService(statement);
         hotelService.idHotelShow();
         System.out.println("Select the hotel");
         int hotelId = hotelScanner.nextInt();
@@ -38,8 +40,8 @@ public class HotelService {
             System.out.println(h.getId() +". "+ h.getHotelName());
         }
     }
-    public void updateHotel(Hotel hotel, List<Room> selected, Reservation reservation){
-    databaseService.updateHotel(hotel,selected,reservation);
+    public void updateHotel(Hotel hotel, List<Room> selected, Reservation reservation,Connection connection){
+    databaseService.updateHotel(hotel,selected,reservation,connection);
     }
     public Hotel findHotelById(int id){
         List<Hotel> hotelList = databaseService.getHotelList();
@@ -50,19 +52,20 @@ public class HotelService {
         }
         return null;
     }
-    public void addHotel(User user){
+    public void addHotel(User user,Statement statement,Connection connection){
         RoomService roomService =new RoomService();
         System.out.println("Hotel Name: ");
         String hotelName = hotelScanner.nextLine();
-        Hotel newHotel = new Hotel(hotelName);
+        Hotel newHotel = new Hotel(hotelName,-1,4);
         System.out.println("How many rooms does the hotel have?");
         int number = hotelScanner.nextInt();
         for(int i = 0;i<number;i++){
             System.out.println("Room "+i+1);
-            Room newRoom = roomService.createRoom();
+            Room newRoom = roomService.createRoom(-1,-1);
             newHotel.addRoom(newRoom);
+
         }
-        databaseService.addHotel(user,newHotel);
+        databaseService.addHotel(user,newHotel, connection);
         System.out.println("[Hotel Service]Succes!");
     }
     public void showHotels(){

@@ -6,6 +6,7 @@ import model.user.Receptionist;
 import model.user.User;
 import repository.UserRepositoryService;
 
+import java.sql.Statement;
 import java.util.List;
 import java.util.Scanner;
 
@@ -13,9 +14,9 @@ public class ReceptionistService{
     private Scanner recScanner;
     private  List<User> receptionistList;
     UserRepositoryService databaseService;
-    public ReceptionistService(){
+    public ReceptionistService(Statement statement){
         recScanner =new Scanner(System.in);
-        databaseService = UserRepositoryService.getInstance();
+        databaseService = UserRepositoryService.getInstance(statement);
         receptionistList = databaseService.getFilteredUsers("receptionist");
 
     }
