@@ -163,9 +163,7 @@ INSERT INTO `hotelrezervation`.`users`
 `lastName`,
 `password`,
 `usertypeId`,
-`salary`,
-`hotelId`,
-`review`)
+`salary`)
 VALUES
 ("admin@gmail.com",
 "Admin",
